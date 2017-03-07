@@ -40,6 +40,8 @@ public class postcodie {
             JSONObject json = new JSONObject(output);
             JSONArray jsona = new JSONArray(output);
 
+            int h = 0;
+
             System.out.println(jsona.getString(2));
 
         }
