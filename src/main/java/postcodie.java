@@ -11,10 +11,14 @@ import java.net.URL;
 
 public class postcodie {
 
+    static String webServiceURL = "";
+
     public static void main (String[] args){
 
+        webServiceURL = "http://api.postcodes.io/postcodes/";
         String postcode = args[0];
         //postcode = "xxx";
+
         if(validatePostcode(postcode)){
             queryPostcode(postcode);
             nearestPostcode(postcode);
@@ -24,15 +28,13 @@ public class postcodie {
     public static void nearestPostcode(String postcode){
         try {
 
-
-            URL url = new URL("http://api.postcodes.io/postcodes/" + postcode + "/nearest");
+            URL url = new URL(webServiceURL + postcode + "/nearest");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
@@ -73,15 +75,13 @@ public class postcodie {
         Boolean output = false;
         try {
 
-
-            URL url = new URL("http://api.postcodes.io/postcodes/" + postcode + "/validate");
+            URL url = new URL(webServiceURL + postcode + "/validate");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
@@ -121,8 +121,7 @@ public class postcodie {
     public static void queryPostcode(String postcode){
         try {
 
-
-            URL url = new URL("http://api.postcodes.io/postcodes/" + postcode);
+            URL url = new URL(webServiceURL + postcode);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -157,8 +156,5 @@ public class postcodie {
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-
     }
-
-
 }
