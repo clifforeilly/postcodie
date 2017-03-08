@@ -2,28 +2,24 @@
  * Created by co17 on 07/03/2017.
  */
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.json.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
 
 public class postcodie {
 
     public static void main (String[] args){
-        String postcode = args[0];
 
-        postcode = "xxx";
+        String postcode = args[0];
+        //postcode = "xxx";
         if(validatePostcode(postcode)){
             queryPostcode(postcode);
             nearestPostcode(postcode);
         }
-
     }
-
 
     public static void nearestPostcode(String postcode){
         try {
@@ -47,7 +43,6 @@ public class postcodie {
                 jsont += output + "\n";
             }
             conn.disconnect();
-            //System.out.println(jsont);
             JSONObject obj = new JSONObject(jsont);
             int Status = obj.getInt("status");
 
@@ -62,10 +57,6 @@ public class postcodie {
                     System.out.println("Nearest postcode " + j + ", country:" + jsona.getJSONObject(i).getString("country"));
                     System.out.println("Nearest postcode " + j + ", region:" + jsona.getJSONObject(i).getString("region"));
                 }
-                //String country = obj.getJSONObject("result").getString("country");
-                //System.out.println("Country is " + country);
-                //String region = obj.getJSONObject("result").getString("region");
-                //System.out.println("Region is " + region);
             }
             else{
                 System.out.println("Postcode not found");
@@ -76,7 +67,6 @@ public class postcodie {
         }
 
     }
-
 
 
     public static Boolean validatePostcode(String postcode){
@@ -104,8 +94,6 @@ public class postcodie {
             conn.disconnect();
             JSONObject obj = new JSONObject(jsont);
             int Status = obj.getInt("status");
-
-            //System.out.println(jsont);
 
             if (Status==200) {
 
