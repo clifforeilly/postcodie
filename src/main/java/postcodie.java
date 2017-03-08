@@ -2,8 +2,8 @@
  * Created by co17 on 07/03/2017.
  */
 
-import org.json.*;
 
+import org.json.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -12,6 +12,7 @@ import java.net.URL;
 public class postcodie {
 
     static String webServiceURL = "";
+    static URL url;
 
     public static void main (String[] args){
 
@@ -25,10 +26,15 @@ public class postcodie {
         }
     }
 
+
+    public static String getURL(){
+        return webServiceURL;
+    }
+
     public static void nearestPostcode(String postcode){
         try {
 
-            URL url = new URL(webServiceURL + postcode + "/nearest");
+            url = new URL(webServiceURL + postcode + "/nearest");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -75,7 +81,7 @@ public class postcodie {
         Boolean output = false;
         try {
 
-            URL url = new URL(webServiceURL + postcode + "/validate");
+            url = new URL(webServiceURL + postcode + "/validate");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -121,7 +127,7 @@ public class postcodie {
     public static void queryPostcode(String postcode){
         try {
 
-            URL url = new URL(webServiceURL + postcode);
+            url = new URL(webServiceURL + postcode);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
